@@ -1,4 +1,5 @@
 import 'package:day1/screen/car_detail_screen.dart';
+import 'package:day1/screen/cars_cards_screen.dart';
 import 'package:day1/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomeScreen(),
         '/CarDetail': (context) => CarDetailScreen(),
+        '/CarsCard': (context) => CarsCardsScreen(),
       },
     );
   }

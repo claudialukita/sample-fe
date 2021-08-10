@@ -1,4 +1,4 @@
-import 'package:day1/model/car_detail_model.dart';
+import 'package:day1/model/is_liked_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -98,10 +98,10 @@ class CarDetailScreen extends StatelessWidget {
                             alignment: Alignment.topRight,
                             padding: EdgeInsets.fromLTRB(55, 15, 0, 0),
                             child: Consumer(builder: (context, watch, child) {
-                              final _isLiked = watch(carDetailModelProvider);
+                              final _isLiked = watch(isLikedModelProvider);
                               return GestureDetector(
                                 onTap: () => context
-                                    .read(carDetailModelProvider.notifier)
+                                    .read(isLikedModelProvider.notifier)
                                     .handleFavorite(),
                                 child: Icon(
                                   Icons.star,
