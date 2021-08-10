@@ -1,34 +1,16 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final carDetailModelProvider = StateNotifierProvider<CarDetailModel, Color>(
-    (ref) => CarDetailModel(Colors.transparent));
+final carDetailModelProvider =
+    StateNotifierProvider<CarDetailModel, bool>((ref) => CarDetailModel());
 
-class CarDetailModel extends StateNotifier<Color> {
-  CarDetailModel(Color state) : super(state);
+class CarDetailModel extends StateNotifier<bool> {
+  CarDetailModel() : super(false);
 
   void handleFavorite() {
-    if (state == Colors.yellow) {
-      state = Colors.transparent;
+    if (state) {
+      state = false;
     } else {
-      state = Colors.yellow;
+      state = true;
     }
   }
 }
-// class CarDetailModel extends StateNotifier<Type> {
-//   CarDetailModel(bool state) : super();
-//
-//   void handleFavorite() {
-//     // if (_iconColor == Colors.yellow) {
-//     //   _iconColor = Colors.transparent;
-//     // } else {
-//     //   _iconColor = Colors.yellow;
-//     // }
-//     if (state) {
-//       state = false;
-//     } else {
-//       state = true;
-//     }
-//   }
-// }
