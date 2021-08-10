@@ -50,119 +50,134 @@ class CarDetailState extends State {
             child: Container(
               padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Color(0xFF60B5F4),
                 borderRadius: new BorderRadius.only(
                   topLeft: const Radius.circular(40.0),
                   topRight: const Radius.circular(40.0),
                 ),
               ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: Text('Sport Car',
+              // child: ConstrainedBox(
+              //   constraints: BoxConstraints.tightFor(width: 315),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 227,
+                              child: Text('Sport Car',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 39,
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            Container(
+                              child: Text(
+                                '\$55/day',
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 39,
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            child: Text(
-                              '\$55/day',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 19,
-                                fontFamily: "Poppins",
+                                  color: Colors.white,
+                                  fontSize: 19,
+                                  fontFamily: "Poppins",
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Stack(
-                        children: [
-                          Container(
-                            alignment: Alignment.topRight,
-                            padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                            child: Image.asset(
-                              'assets/images/Star_1.png',
-                              width: 25,
-                              height: 25,
-                            ),
-                          ),
-                          InkWell(
-                            child: Container(
+                          ],
+                        ),
+                        Stack(
+                          children: [
+                            Container(
                               alignment: Alignment.topRight,
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                              child: Icon(Icons.star, color: _iconColor),
+                              padding: EdgeInsets.fromLTRB(55, 15, 0, 0),
+                              child: Image.asset(
+                                'assets/images/Star_1.png',
+                                width: 33.51,
+                                height: 33.51,
+                              ),
                             ),
-                            onTap: () => {
-                              if(_iconColor == Colors.yellow){
-                                setState(() {
-                                  _iconColor = Colors.transparent;
-                                }),
-                              } else {
-                                setState(() {
-                                  _iconColor = Colors.yellow;
-                                }),
-                              }
-
-                            },
+                            InkWell(
+                              child: Container(
+                                alignment: Alignment.topRight,
+                                padding: EdgeInsets.fromLTRB(55, 15, 0, 0),
+                                child: Icon(Icons.star, color: _iconColor, size: 33.51),
+                              ),
+                              onTap: () => {
+                                if (_iconColor == Colors.yellow)
+                                  {
+                                    setState(() {
+                                      _iconColor = Colors.transparent;
+                                    }),
+                                  }
+                                else
+                                  {
+                                    setState(() {
+                                      _iconColor = Colors.yellow;
+                                    }),
+                                  }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(
+                      width: 315,
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.fromLTRB(0, 18, 0, 0),
+                      child: Text(
+                        'Description',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 19,
+                          fontFamily: "Poppins",
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5), //margin
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.fromLTRB(18, 0, 0, 0),
+                      child: Text(
+                        'Wanna ride the coolest car in the world?',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontFamily: "Poppins",
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10), //margin
+                    ConstrainedBox(
+                      constraints:
+                          BoxConstraints.tightFor(width: 315, height: 57),
+                      child: ElevatedButton(
+                        onPressed: () => {},
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.fromLTRB(0, 18, 0, 0),
-                    child: Text(
-                      'Description',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 19,
-                        fontFamily: "Poppins",
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5), //margin
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Text(
-                      'Wanna ride the coolest car in the world?',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontFamily: "Poppins",
+                          primary: Colors.white,
+                          padding: EdgeInsets.fromLTRB(130, 16.5, 130, 16.5),
+                        ),
+                        child: Text(
+                          'Book now',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: "Poppins",
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10), //margin
-                  ElevatedButton(
-                    onPressed: () => {},
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      padding: EdgeInsets.fromLTRB(130, 16.5, 130, 16.5),
-                    ),
-                    child: Text(
-                      'Book now',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: "Poppins",
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              // ),
             ),
           ),
         ],
