@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class CarsCardsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,18 +10,16 @@ class CarsCardsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Cars',
             style: TextStyle(
-                color: Colors.black,
                 fontSize: 20,
                 fontFamily: "Poppins",
                 fontWeight: FontWeight.bold)),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: Navigator.of(context).pop,
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Theme.of(context).iconTheme.color,
           ),
         ),
         actions: [
@@ -73,7 +70,7 @@ class CarsCardsScreen extends StatelessWidget {
                         Container(
                           width: 266,
                           child: Text(
-                            '\$55/day',
+                            '\$34/day',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 14,
@@ -128,73 +125,80 @@ class CarsCardsScreen extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    width: 306,
-                    height: 143.5,
-                    padding: EdgeInsets.all(20),
-                    // alignment: Alignment.center,
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 47.5),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF60B5F4),
-                      borderRadius: new BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 266,
-                          child: Text('Sport Car',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.w600)),
-                        ),
-                        Container(
-                          width: 266,
-                          child: Text(
-                            '\$55/day',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontFamily: "Poppins",
-                            ),
+                    child: ConstrainedBox(
+                      constraints:
+                          BoxConstraints.tightFor(width: 306, height: 143.5),
+                      child: ElevatedButton(
+                        onPressed: () =>
+                            {Navigator.pushNamed(context, '/CarDetail')},
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
+                          padding: EdgeInsets.all(20),
+                          primary: Color(0xFF60B5F4),
                         ),
-                        Stack(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                              child: Image.asset(
-                                'assets/images/Star_1.png',
-                                width: 28.5,
-                                height: 28.5,
-                              ),
+                              width: 266,
+                              child: Text('Sport Car',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600)),
                             ),
                             Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                              child: Consumer(builder: (context, watch, child) {
-                                final _isLiked = watch(isLikedModelProvider);
-                                return GestureDetector(
-                                  onTap: () => context
-                                      .read(isLikedModelProvider.notifier)
-                                      .handleFavorite(),
-                                  child: Icon(
-                                    Icons.star,
-                                    size: 28.5,
-                                    color: _isLiked
-                                        ? Colors.yellow
-                                        : Colors.transparent,
+                              width: 266,
+                              child: Text(
+                                '\$55/day',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontFamily: "Poppins",
+                                ),
+                              ),
+                            ),
+                            Stack(
+                              children: [
+                                Container(
+                                  alignment: Alignment.bottomLeft,
+                                  padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                  child: Image.asset(
+                                    'assets/images/Star_1.png',
+                                    width: 28.5,
+                                    height: 28.5,
                                   ),
-                                );
-                              }),
+                                ),
+                                Container(
+                                  alignment: Alignment.bottomLeft,
+                                  padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                  child: Consumer(
+                                      builder: (context, watch, child) {
+                                    final _isLiked =
+                                        watch(isLikedModelProvider2);
+                                    return GestureDetector(
+                                      onTap: () => context
+                                          .read(isLikedModelProvider2.notifier)
+                                          .handleFavorite(),
+                                      child: Icon(
+                                        Icons.star,
+                                        size: 28.5,
+                                        color: _isLiked
+                                            ? Colors.yellow
+                                            : Colors.transparent,
+                                      ),
+                                    );
+                                  }),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                   Container(
@@ -235,7 +239,7 @@ class CarsCardsScreen extends StatelessWidget {
                         Container(
                           width: 266,
                           child: Text(
-                            '\$55/day',
+                            '\$500/day',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 14,
@@ -258,10 +262,10 @@ class CarsCardsScreen extends StatelessWidget {
                               alignment: Alignment.bottomLeft,
                               padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
                               child: Consumer(builder: (context, watch, child) {
-                                final _isLiked = watch(isLikedModelProvider);
+                                final _isLiked = watch(isLikedModelProvider3);
                                 return GestureDetector(
                                   onTap: () => context
-                                      .read(isLikedModelProvider.notifier)
+                                      .read(isLikedModelProvider3.notifier)
                                       .handleFavorite(),
                                   child: Icon(
                                     Icons.star,
@@ -316,7 +320,7 @@ class CarsCardsScreen extends StatelessWidget {
                         Container(
                           width: 266,
                           child: Text(
-                            '\$55/day',
+                            '\$45/day',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 14,
@@ -339,10 +343,10 @@ class CarsCardsScreen extends StatelessWidget {
                               alignment: Alignment.bottomLeft,
                               padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
                               child: Consumer(builder: (context, watch, child) {
-                                final _isLiked = watch(isLikedModelProvider);
+                                final _isLiked = watch(isLikedModelProvider4);
                                 return GestureDetector(
                                   onTap: () => context
-                                      .read(isLikedModelProvider.notifier)
+                                      .read(isLikedModelProvider4.notifier)
                                       .handleFavorite(),
                                   child: Icon(
                                     Icons.star,

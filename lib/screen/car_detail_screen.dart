@@ -10,18 +10,16 @@ class CarDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Cars',
             style: TextStyle(
-                color: Colors.black,
                 fontSize: 20,
                 fontFamily: "Poppins",
                 fontWeight: FontWeight.bold)),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: Navigator.of(context).pop,
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Theme.of(context).iconTheme.color,
           ),
         ),
         actions: [
