@@ -1,11 +1,13 @@
-import 'package:day1/model/is_liked_model.dart';
+import 'package:day1/view_model/car_view_model.dart';
+import 'package:day1/view_model/favorite_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CarsCardsScreen extends StatelessWidget {
+class CarsCardsScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, watch) {
+    final cars = watch(carsViewModelProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text('Cars',
@@ -36,344 +38,108 @@ class CarsCardsScreen extends StatelessWidget {
         ],
       ),
       body: Container(
-        width: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 56), //margin
-              Stack(
-                children: [
-                  Container(
-                    width: 306,
-                    height: 143.5,
-                    padding: EdgeInsets.all(20),
-                    // alignment: Alignment.center,
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 47.5),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFB67853),
-                      borderRadius: new BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 266,
-                          child: Text('Classic Car',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.w600)),
-                        ),
-                        Container(
-                          width: 266,
-                          child: Text(
-                            '\$34/day',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontFamily: "Poppins",
+        // width: double.infinity,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: cars.length,
+          itemBuilder: (context, index) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 47.5),
+                      child: ConstrainedBox(
+                        constraints:
+                            BoxConstraints.tightFor(width: 306, height: 143.5),
+                        child: ElevatedButton(
+                          onPressed: () => {
+                            Navigator.pushNamed(context, '/CarDetail',
+                                arguments: cars[index])
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
+                            padding: EdgeInsets.all(20),
+                            primary: cars[index].color,
                           ),
-                        ),
-                        Stack(
-                          children: [
-                            Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                              child: Image.asset(
-                                'assets/images/Star_1.png',
-                                width: 28.5,
-                                height: 28.5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 266,
+                                child: Text(cars[index].name,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.w600)),
                               ),
-                            ),
-                            Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                              child: Consumer(builder: (context, watch, child) {
-                                final _isLiked = watch(isLikedModelProvider);
-                                return GestureDetector(
-                                  onTap: () => context
-                                      .read(isLikedModelProvider.notifier)
-                                      .handleFavorite(),
-                                  child: Icon(
-                                    Icons.star,
-                                    size: 28.5,
-                                    color: _isLiked
-                                        ? Colors.yellow
-                                        : Colors.transparent,
-                                  ),
-                                );
-                              }),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 306,
-                    height: 172,
-                    alignment: Alignment.bottomRight,
-                    child: Image.asset('assets/images/Vehicle_Classic_Car.png',
-                        width: 200, height: 124),
-                  ),
-                ],
-              ),
-              Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 47.5),
-                    child: ConstrainedBox(
-                      constraints:
-                          BoxConstraints.tightFor(width: 306, height: 143.5),
-                      child: ElevatedButton(
-                        onPressed: () =>
-                            {Navigator.pushNamed(context, '/CarDetail')},
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          padding: EdgeInsets.all(20),
-                          primary: Color(0xFF60B5F4),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 266,
-                              child: Text('Sport Car',
+                              Container(
+                                width: 266,
+                                child: Text(
+                                  cars[index].price,
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24,
-                                      fontFamily: "Poppins",
-                                      fontWeight: FontWeight.w600)),
-                            ),
-                            Container(
-                              width: 266,
-                              child: Text(
-                                '\$55/day',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontFamily: "Poppins",
-                                ),
-                              ),
-                            ),
-                            Stack(
-                              children: [
-                                Container(
-                                  alignment: Alignment.bottomLeft,
-                                  padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                  child: Image.asset(
-                                    'assets/images/Star_1.png',
-                                    width: 28.5,
-                                    height: 28.5,
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: "Poppins",
                                   ),
                                 ),
-                                Container(
-                                  alignment: Alignment.bottomLeft,
-                                  padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                  child: Consumer(
-                                      builder: (context, watch, child) {
-                                    final _isLiked =
-                                        watch(isLikedModelProvider2);
-                                    return GestureDetector(
-                                      onTap: () => context
-                                          .read(isLikedModelProvider2.notifier)
-                                          .handleFavorite(),
-                                      child: Icon(
-                                        Icons.star,
-                                        size: 28.5,
-                                        color: _isLiked
-                                            ? Colors.yellow
-                                            : Colors.transparent,
-                                      ),
-                                    );
-                                  }),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 306,
-                    height: 172,
-                    alignment: Alignment.bottomRight,
-                    child: Image.asset('assets/images/Vehicle_Sport_Car.png',
-                        width: 200, height: 124),
-                  ),
-                ],
-              ),
-              Stack(
-                children: [
-                  Container(
-                    width: 306,
-                    height: 143.5,
-                    padding: EdgeInsets.all(20),
-                    // alignment: Alignment.center,
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 47.5),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF8382C2),
-                      borderRadius: new BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 266,
-                          child: Text('Flying Car',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.w600)),
-                        ),
-                        Container(
-                          width: 266,
-                          child: Text(
-                            '\$500/day',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontFamily: "Poppins",
-                            ),
+                              ),
+                              Stack(
+                                children: [
+                                  Container(
+                                    alignment: Alignment.bottomLeft,
+                                    padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                    child: Image.asset(
+                                      'assets/images/Star_1.png',
+                                      width: 28.5,
+                                      height: 28.5,
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.bottomLeft,
+                                    padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                    child: Consumer(
+                                        builder: (context, watch, child) {
+                                      final isLiked =
+                                          watch(favoriteViewModelProvider);
+                                      return GestureDetector(
+                                        onTap: () => context
+                                            .read(favoriteViewModelProvider
+                                                .notifier)
+                                            .handlingFav(index),
+                                        child: Icon(
+                                          Icons.star,
+                                          size: 28.5,
+                                          color: isLiked[index].isLiked
+                                              ? Colors.yellow
+                                              : Colors.transparent,
+                                        ),
+                                      );
+                                    }),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                        Stack(
-                          children: [
-                            Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                              child: Image.asset(
-                                'assets/images/Star_1.png',
-                                width: 28.5,
-                                height: 28.5,
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                              child: Consumer(builder: (context, watch, child) {
-                                final _isLiked = watch(isLikedModelProvider3);
-                                return GestureDetector(
-                                  onTap: () => context
-                                      .read(isLikedModelProvider3.notifier)
-                                      .handleFavorite(),
-                                  child: Icon(
-                                    Icons.star,
-                                    size: 28.5,
-                                    color: _isLiked
-                                        ? Colors.yellow
-                                        : Colors.transparent,
-                                  ),
-                                );
-                              }),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 306,
-                    height: 172,
-                    alignment: Alignment.bottomRight,
-                    child: Image.asset('assets/images/Vehicle_Flying_Car.png',
-                        width: 200, height: 124),
-                  ),
-                ],
-              ),
-              Stack(
-                children: [
-                  Container(
-                    width: 306,
-                    height: 143.5,
-                    padding: EdgeInsets.all(20),
-                    // alignment: Alignment.center,
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 47.5),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF2A3640),
-                      borderRadius: new BorderRadius.all(
-                        Radius.circular(10.0),
                       ),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 266,
-                          child: Text('Electric Car',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.w600)),
-                        ),
-                        Container(
-                          width: 266,
-                          child: Text(
-                            '\$45/day',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontFamily: "Poppins",
-                            ),
-                          ),
-                        ),
-                        Stack(
-                          children: [
-                            Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                              child: Image.asset(
-                                'assets/images/Star_1.png',
-                                width: 28.5,
-                                height: 28.5,
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                              child: Consumer(builder: (context, watch, child) {
-                                final _isLiked = watch(isLikedModelProvider4);
-                                return GestureDetector(
-                                  onTap: () => context
-                                      .read(isLikedModelProvider4.notifier)
-                                      .handleFavorite(),
-                                  child: Icon(
-                                    Icons.star,
-                                    size: 28.5,
-                                    color: _isLiked
-                                        ? Colors.yellow
-                                        : Colors.transparent,
-                                  ),
-                                );
-                              }),
-                            ),
-                          ],
-                        ),
-                      ],
+                    Container(
+                      width: 306,
+                      height: 172,
+                      alignment: Alignment.bottomRight,
+                      child: Image.asset(cars[index].image,
+                          width: 200, height: 124),
                     ),
-                  ),
-                  Container(
-                    width: 306,
-                    height: 172,
-                    alignment: Alignment.bottomRight,
-                    child: Image.asset('assets/images/Vehicle_Electric_Car.png',
-                        width: 200, height: 124),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                  ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

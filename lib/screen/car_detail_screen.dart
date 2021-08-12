@@ -1,3 +1,4 @@
+import 'package:day1/model/car.dart';
 import 'package:day1/model/is_liked_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class CarDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final car = ModalRoute.of(context)!.settings.arguments as Car;
     return Scaffold(
       appBar: AppBar(
         title: Text('Cars',
@@ -38,13 +40,14 @@ class CarDetailScreen extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            child: Image.asset('assets/images/Beep_Beep_Medium_Vehicle.png'),
+            child: Image.asset(car.image, width: 375, height: 288.33),
+
           ),
           Expanded(
             child: Container(
               padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
               decoration: BoxDecoration(
-                color: Color(0xFF60B5F4),
+                color: car.color,
                 borderRadius: new BorderRadius.only(
                   topLeft: const Radius.circular(40.0),
                   topRight: const Radius.circular(40.0),
@@ -61,8 +64,8 @@ class CarDetailScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: 227,
-                            child: Text('Sport Car',
+                            width: 250,
+                            child: Text(car.name,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 39,
@@ -71,7 +74,7 @@ class CarDetailScreen extends StatelessWidget {
                           ),
                           Container(
                             child: Text(
-                              '\$55/day',
+                              car.price,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 19,
@@ -85,7 +88,7 @@ class CarDetailScreen extends StatelessWidget {
                         children: [
                           Container(
                             alignment: Alignment.topRight,
-                            padding: EdgeInsets.fromLTRB(55, 15, 0, 0),
+                            padding: EdgeInsets.fromLTRB(32, 15, 0, 0),
                             child: Image.asset(
                               'assets/images/Star_1.png',
                               width: 33.51,
@@ -94,7 +97,7 @@ class CarDetailScreen extends StatelessWidget {
                           ),
                           Container(
                             alignment: Alignment.topRight,
-                            padding: EdgeInsets.fromLTRB(55, 15, 0, 0),
+                            padding: EdgeInsets.fromLTRB(32, 15, 0, 0),
                             child: Consumer(builder: (context, watch, child) {
                               final _isLiked = watch(isLikedModelProvider);
                               return GestureDetector(
